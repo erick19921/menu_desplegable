@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:menu_desplegable/screens/distribuidor/datos_personales/cedula_id.dart';
+import 'package:menu_desplegable/screens/distribuidor/datos_personales/datos_vehiculo.dart';
 import 'package:menu_desplegable/screens/distribuidor/datos_personales/informacion_basica.dart';
 import 'package:menu_desplegable/screens/distribuidor/datos_personales/licencia_conducir.dart';
 
@@ -41,7 +42,7 @@ class VerificacionDatosScreen extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      const LicenciaCoducirScreen()));
+                      const LicenciaConducirScreen()));
             },
           ),
           ListTile(
@@ -58,7 +59,7 @@ class VerificacionDatosScreen extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      const LicenciaCoducirScreen()));
+                      const DatosVehicuoScreen()));
             },
           ),
         ],
