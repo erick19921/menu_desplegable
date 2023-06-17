@@ -1,109 +1,113 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class InformacionBasicaScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+
+class InformacionBasicaScreen extends StatefulWidget {
   const InformacionBasicaScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController textField1Controller = TextEditingController();
-    final TextEditingController textField2Controller = TextEditingController();
-    // return MaterialApp(
-    //   home: Scaffold(
-    //     appBar: AppBar(
-    //       title: const Text('Ingreso de datos personales'),
-    //       backgroundColor: Color(0xFFA72138),
-    //     ),
-    //     body: CustomScrollView(
-    //       slivers: [
-    //         SliverList(
-    //           delegate: SliverChildListDelegate(
-    //             [FormScreen()],
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ingreso de datos personales'),
-        backgroundColor: Color(0xFFA72138),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(50.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: textField1Controller,
-              decoration: InputDecoration(
-                labelText: 'Nombre',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: textField2Controller,
-              decoration: InputDecoration(
-                labelText: 'correo',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // Acción al presionar el botón
-                String value1 = textField1Controller.text;
-                String value2 = textField2Controller.text;
-                print('Campo 1: $value1');
-                print('Campo 2: $value2');
-              },
-              child: Text('Guardar'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  _InformacionBasicaScreenState createState() =>
+      _InformacionBasicaScreenState();
 }
 
-class FormScreen extends StatelessWidget {
-  final TextEditingController textField1Controller = TextEditingController();
-  final TextEditingController textField2Controller = TextEditingController();
+class _InformacionBasicaScreenState extends State<InformacionBasicaScreen> {
+  String _selectedImagePath = '';
+  DateTime _selectedDate = DateTime.now();
+
+  void _openImagePicker() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImagePath = pickedFile.path;
+      });
+    }
+  }
+
+  Future<void> _selectDate() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Formulario'),
+        title: Text('Agregar Foto de Perfil'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: textField1Controller,
-              decoration: InputDecoration(
-                labelText: 'Campo 1',
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverPadding(
+            padding: EdgeInsets.all(16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (_selectedImagePath.isNotEmpty)
+                          CircleAvatar(
+                            backgroundImage:
+                                FileImage(File(_selectedImagePath)),
+                            radius: 60,
+                          )
+                        else
+                          CircleAvatar(
+                            radius: 50,
+                            child: Icon(Icons.person),
+                          ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: _openImagePicker,
+                          child: Text('Seleccionar Foto'),
+                        ),
+                        SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Nombre',
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Descripción',
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        //Text('Fecha de Nacimiento:'),
+                        Text(DateFormat('dd/MM/yyyy').format(_selectedDate)),
+                        SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: _selectDate,
+                          child: Text('Seleccionar Fecha'),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Implementa la lógica para el último botón
+                          },
+                          child: Text('Guardar'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: textField2Controller,
-              decoration: InputDecoration(
-                labelText: 'Campo 2',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // Acción al presionar el botón
-                String value1 = textField1Controller.text;
-                String value2 = textField2Controller.text;
-                print('Campo 1: $value1');
-                print('Campo 2: $value2');
-              },
-              child: Text('Guardar'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
