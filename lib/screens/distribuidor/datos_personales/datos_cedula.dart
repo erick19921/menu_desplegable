@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-//import 'package:menu_desplegable/widgets/input_text_login.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-void main() => runApp(const LicenciaConducirScreen());
+void main() => runApp(const CedulaScreen());
 
-class LicenciaConducirScreen extends StatelessWidget {
-  const LicenciaConducirScreen({Key? key}) : super(key: key);
+class CedulaScreen extends StatelessWidget {
+  const CedulaScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,13 @@ class LicenciaConducirScreen extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  NumPlaca(),
-                  FotoLicencia(),
-                  FotoLicenciaAtras(),
-                  RoundBorderButton(onPressed: () {}, label: 'Guardar')
+                  NumCedula(),
+                  FotoCedulaFrente(),
+                  FotoCedulaAtras(),
+                  RoundBorderButton(
+                    onPressed: () {},
+                    label: 'Guardar',
+                  )
                 ],
               ),
             ),
@@ -34,8 +37,9 @@ class LicenciaConducirScreen extends StatelessWidget {
   }
 }
 
-class NumPlaca extends StatelessWidget {
-  const NumPlaca({Key? key}) : super(key: key);
+//Inivcio de los métodos
+class NumCedula extends StatelessWidget {
+  const NumCedula({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +59,9 @@ class NumPlaca extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 0.1),
+            const SizedBox(height: 0.1),
             Text(
-              'Numero de licencia',
+              'Numero de dedula',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -78,8 +82,8 @@ class NumPlaca extends StatelessWidget {
   }
 }
 
-class FotoLicencia extends StatelessWidget {
-  const FotoLicencia({Key? key}) : super(key: key);
+class FotoCedulaFrente extends StatelessWidget {
+  const FotoCedulaFrente({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +92,7 @@ class FotoLicencia extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(20),
-        height: 358,
+        height: 330,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
@@ -110,7 +114,7 @@ class FotoLicencia extends StatelessWidget {
               child: Image.asset('assets/cedula.png'),
             ),
             ElevatedButton.icon(
-              onPressed: _pickImage,
+              onPressed: getImageFromCamera,
               icon: const Icon(Icons.add, color: Color.fromARGB(255, 0, 0, 0)),
               label: const Text('Añadir',
                   style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
@@ -122,7 +126,7 @@ class FotoLicencia extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            //const SizedBox(height: 50),
           ],
         ),
       ),
@@ -130,8 +134,8 @@ class FotoLicencia extends StatelessWidget {
   }
 }
 
-class FotoLicenciaAtras extends StatelessWidget {
-  const FotoLicenciaAtras({Key? key}) : super(key: key);
+class FotoCedulaAtras extends StatelessWidget {
+  const FotoCedulaAtras({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +166,7 @@ class FotoLicenciaAtras extends StatelessWidget {
               child: Image.asset('assets/cedula.png'),
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: getImageFromCamera,
               icon: const Icon(Icons.add, color: Color.fromARGB(255, 0, 0, 0)),
               label: const Text('Añadir',
                   style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
@@ -240,9 +244,9 @@ class RoundBorderButton extends StatelessWidget {
     required this.onPressed,
     required this.label,
     this.radius = 20,
-    this.borderWidth = 1.5,
+    this.borderWidth = 2,
     this.borderColor = const Color.fromARGB(255, 139, 32, 24),
-    this.padding = const EdgeInsets.symmetric(vertical: 3, horizontal: 40),
+    this.padding = const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
   }) : super(key: key);
 
   @override
@@ -276,6 +280,7 @@ class RoundBorderButton extends StatelessWidget {
   }
 }
 
+//metodo para seleccionar la imagen desde la galería
 Future<void> _pickImage() async {
   final picker = ImagePicker();
   final pickedImage = await picker.getImage(source: ImageSource.gallery);
@@ -283,5 +288,18 @@ Future<void> _pickImage() async {
   if (pickedImage != null) {
     // Aquí puedes procesar la imagen seleccionada
     // Por ejemplo, puedes mostrarla en un widget Image o subirla a un servidor
+  }
+}
+
+//método para cargar una aimagen desde la camara
+Future<File> getImageFromCamera() async {
+  final picker = ImagePicker();
+  final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+  if (pickedFile != null) {
+    return File(pickedFile.path);
+  } else {
+    print('No image selected.');
+    throw Exception('Imagen no seleccionada');
   }
 }

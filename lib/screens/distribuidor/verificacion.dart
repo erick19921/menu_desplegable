@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:menu_desplegable/screens/distribuidor/datos_personales/cedula_id.dart';
+import 'package:menu_desplegable/screens/distribuidor/datos_personales/datos_cedula.dart';
+import 'datos_personales/datos_licencia.dart';
 import 'package:menu_desplegable/screens/distribuidor/datos_personales/datos_vehiculo.dart';
 import 'package:menu_desplegable/screens/distribuidor/datos_personales/informacion_basica.dart';
-import 'package:menu_desplegable/screens/distribuidor/datos_personales/licencia_conducir.dart';
 
 class VerificacionDatosScreen extends StatelessWidget {
   const VerificacionDatosScreen({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class VerificacionDatosScreen extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      const LicenciaConducirScreen()));
+                      const DatosLicenciaScreen()));
             },
           ),
           ListTile(
@@ -50,7 +50,7 @@ class VerificacionDatosScreen extends StatelessWidget {
             trailing: Icon(Icons.arrow_forward_ios_outlined),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => const CedulaIDScreen()));
+                  builder: (BuildContext context) => const CedulaScreen()));
             },
           ),
           ListTile(
@@ -59,10 +59,60 @@ class VerificacionDatosScreen extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      const DatosVehicuoScreen()));
+                      const DatosVehiculoScreen()));
             },
           ),
+          RoundBorderButton(onPressed: () {}, label: 'Siguiente')
         ],
+      ),
+    );
+  }
+}
+
+class RoundBorderButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String label;
+  final double radius;
+  final double borderWidth;
+  final Color borderColor;
+  final EdgeInsetsGeometry padding;
+
+  const RoundBorderButton({
+    Key? key,
+    required this.onPressed,
+    required this.label,
+    this.radius = 20,
+    this.borderWidth = 2,
+    this.borderColor = const Color.fromARGB(255, 139, 32, 24),
+    this.padding = const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.transparent,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius),
+            side: BorderSide(
+              color: borderColor,
+              width: borderWidth,
+            ),
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: borderColor,
+          ),
+        ),
       ),
     );
   }

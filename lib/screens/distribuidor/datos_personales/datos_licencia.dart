@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-void main() => runApp(const DatosVehiculoScreen());
+void main() => runApp(const DatosLicenciaScreen());
 
-class DatosVehiculoScreen extends StatelessWidget {
-  const DatosVehiculoScreen({Key? key}) : super(key: key);
+class DatosLicenciaScreen extends StatelessWidget {
+  const DatosLicenciaScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,10 @@ class DatosVehiculoScreen extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  NumPlacaCamion(),
-                  FotoCamion(),
-                  FotoAutorizacionENIFrente(),
-                  FotoAutorizacionENIAtras(),
+                  NumLicencia(),
+                  FotoLicenciaFrente(),
+                  FotoLicenciaAtras(),
+                  FechaExpiracionLicencia(),
                   // DatePickerWidget(
                   //   onDateSelected: (value) {},
                   // ),
@@ -42,8 +42,8 @@ class DatosVehiculoScreen extends StatelessWidget {
   }
 }
 
-class NumPlacaCamion extends StatelessWidget {
-  const NumPlacaCamion({Key? key}) : super(key: key);
+class NumLicencia extends StatelessWidget {
+  const NumLicencia({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class NumPlacaCamion extends StatelessWidget {
           children: [
             SizedBox(height: 0.1),
             Text(
-              'Numero de placa',
+              'Numero de licencia',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -86,8 +86,8 @@ class NumPlacaCamion extends StatelessWidget {
   }
 }
 
-class FotoCamion extends StatelessWidget {
-  const FotoCamion({Key? key}) : super(key: key);
+class FotoLicenciaFrente extends StatelessWidget {
+  const FotoLicenciaFrente({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class FotoCamion extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(20),
-        height: 320,
+        height: 330,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
@@ -107,15 +107,15 @@ class FotoCamion extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              'Foto del camion',
+              'Licencia de conducir(Frente)',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Transform.scale(
               scale: 0.7,
-              child: Image.asset('assets/camion1.png'),
+              child: Image.asset('assets/licen.png'),
             ),
             ElevatedButton.icon(
               onPressed: getImageFromCamera,
@@ -138,8 +138,8 @@ class FotoCamion extends StatelessWidget {
   }
 }
 
-class FotoAutorizacionENIFrente extends StatelessWidget {
-  const FotoAutorizacionENIFrente({Key? key}) : super(key: key);
+class FotoLicenciaAtras extends StatelessWidget {
+  const FotoLicenciaAtras({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class FotoAutorizacionENIFrente extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(20),
-        height: 330,
+        height: 335,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
@@ -159,15 +159,15 @@ class FotoAutorizacionENIFrente extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              'Targeta de autorizacion ENI(parte delantera)',
+              'Licencia de conducir(parte trasera)',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Transform.scale(
               scale: 0.7,
-              child: Image.asset('assets/idcareni.png'),
+              child: Image.asset('assets/licen.png'),
             ),
             ElevatedButton.icon(
               onPressed: getImageFromCamera,
@@ -190,8 +190,9 @@ class FotoAutorizacionENIFrente extends StatelessWidget {
   }
 }
 
-class FotoAutorizacionENIAtras extends StatelessWidget {
-  const FotoAutorizacionENIAtras({Key? key}) : super(key: key);
+//facha de expiración de la licencia
+class FechaExpiracionLicencia extends StatelessWidget {
+  const FechaExpiracionLicencia({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +201,8 @@ class FotoAutorizacionENIAtras extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(20),
-        height: 330,
+        height: 130,
+        width: 0,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
@@ -210,31 +212,22 @@ class FotoAutorizacionENIAtras extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const Text(
-              'Tarjeta de autorización ENI(parte trasera)',
+            SizedBox(height: 0.1),
+            Text(
+              'Fecha de expiración de la licencia',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Transform.scale(
-              scale: 0.7,
-              child: Image.asset('assets/idcareni.png'),
-            ),
-            ElevatedButton.icon(
-              onPressed: getImageFromCamera,
-              icon: const Icon(Icons.add, color: Color.fromARGB(255, 0, 0, 0)),
-              label: const Text('Añadir',
-                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: BorderSide(color: Colors.red[900]!, width: 1.5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+            SizedBox(height: 1),
+            TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -312,5 +305,67 @@ Future<File> getImageFromCamera() async {
   } else {
     print('No image selected.');
     throw Exception('Imagen no seleccionada');
+  }
+}
+
+//clase para fecha
+class DatePickerWidget extends StatefulWidget {
+  final ValueChanged<DateTime> onDateSelected;
+
+  const DatePickerWidget({Key? key, required this.onDateSelected})
+      : super(key: key);
+
+  @override
+  _DatePickerWidgetState createState() => _DatePickerWidgetState();
+}
+
+class _DatePickerWidgetState extends State<DatePickerWidget> {
+  DateTime _selectedDate = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _selectDate,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Fecha de expiración de la licencia',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(_selectedDate.toString()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _selectDate() async {
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030),
+    );
+
+    if (selectedDate != null) {
+      setState(() {
+        _selectedDate = selectedDate;
+      });
+
+      widget.onDateSelected(selectedDate);
+    }
   }
 }

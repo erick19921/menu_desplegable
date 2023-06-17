@@ -27,7 +27,7 @@ class SeguridadProteccionScreen extends StatelessWidget {
             Center(
               child: Transform.scale(
                 scale: 0.5,
-                child: Image.asset('assets/images/seguridad.png'),
+                child: Image.asset('assets/seguridad.png'),
               ),
             ),
             const Text(
