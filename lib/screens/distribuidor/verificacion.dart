@@ -36,6 +36,7 @@ class VerificacionDatosScreen extends StatelessWidget {
                       const InformacionBasicaScreen()));
             },
           ),
+          Divider(),
           ListTile(
             title: Text('Licencia de conducir'),
             trailing: Icon(Icons.arrow_forward_ios_outlined),
@@ -45,6 +46,7 @@ class VerificacionDatosScreen extends StatelessWidget {
                       const DatosLicenciaScreen()));
             },
           ),
+          Divider(),
           ListTile(
             title: Text('Cédula de identidad'),
             trailing: Icon(Icons.arrow_forward_ios_outlined),
@@ -53,6 +55,7 @@ class VerificacionDatosScreen extends StatelessWidget {
                   builder: (BuildContext context) => const CedulaScreen()));
             },
           ),
+          Divider(),
           ListTile(
             title: Text('Datos del vehículo'),
             trailing: Icon(Icons.arrow_forward_ios_outlined),
@@ -62,6 +65,7 @@ class VerificacionDatosScreen extends StatelessWidget {
                       const DatosVehiculoScreen()));
             },
           ),
+          Divider(),
           RoundBorderButton(onPressed: () {}, label: 'Siguiente')
         ],
       ),
@@ -97,6 +101,7 @@ class RoundBorderButton extends StatelessWidget {
           primary: Colors.transparent,
           onPrimary: Colors.transparent,
           elevation: 0,
+          minimumSize: Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
             side: BorderSide(

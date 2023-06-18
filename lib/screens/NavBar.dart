@@ -98,7 +98,7 @@ class NavBar extends StatelessWidget {
           Divider(),
           const SizedBox(
             height: 250.0,
-            width: 10,
+            width: 1,
           ),
 
           OutlinedButton(
@@ -116,10 +116,10 @@ class NavBar extends StatelessWidget {
                     color: Color.fromARGB(
                         255, 93, 13, 27)), // Borde del botón de color marrón
               ),
-              backgroundColor:
-                  Color.fromARGB(255, 246, 242, 243), // Color de fondo marrón
-              minimumSize:
-                  const Size(0.000001, 50.0), // Tamaño mínimo de 200x50
+              backgroundColor: Color.fromARGB(255, 246, 242, 243),
+              minimumSize: Size(double.infinity, 50),
+              // Color de fondo marrón
+              // Tamaño mínimo de 200x50
             ),
             child: const Text('Cambiar modo distribuidor'),
           ),

@@ -45,6 +45,7 @@ class _InformacionBasicaScreenState extends State<InformacionBasicaScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Agregar Foto de Perfil'),
+        backgroundColor: Color(0xFFA72138),
       ),
       body: CustomScrollView(
         slivers: <Widget>[
@@ -65,13 +66,35 @@ class _InformacionBasicaScreenState extends State<InformacionBasicaScreen> {
                           )
                         else
                           CircleAvatar(
-                            radius: 50,
-                            child: Icon(Icons.person),
+                            radius: 45,
+                            //child: Icon(Icons.person),
+                            backgroundColor: Color.fromARGB(240, 114, 117, 115),
+                            backgroundImage: AssetImage('assets/usuario.png'),
                           ),
                         SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _openImagePicker,
-                          child: Text('Seleccionar Foto'),
+                        OutlinedButton.icon(
+                          onPressed: () {
+                            // Implementa la lógica para el último botón
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side:
+                                BorderSide(color: Colors.red[900]!, width: 1.5),
+                            // minimumSize: Size(double.infinity, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.red[900]!,
+                          ),
+                          label: Text(
+                            'Añadir',
+                            style: TextStyle(
+                              color: Colors.red[900]!,
+                            ),
+                          ),
                         ),
                         SizedBox(height: 20),
                         TextField(
@@ -82,23 +105,66 @@ class _InformacionBasicaScreenState extends State<InformacionBasicaScreen> {
                         SizedBox(height: 10),
                         TextField(
                           decoration: InputDecoration(
-                            hintText: 'Descripción',
+                            hintText: 'Apellido',
                           ),
                         ),
                         SizedBox(height: 20),
                         //Text('Fecha de Nacimiento:'),
                         Text(DateFormat('dd/MM/yyyy').format(_selectedDate)),
                         SizedBox(height: 10),
-                        ElevatedButton(
+                        OutlinedButton.icon(
                           onPressed: _selectDate,
-                          child: Text('Seleccionar Fecha'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side:
+                                BorderSide(color: Colors.red[900]!, width: 1.5),
+                            minimumSize: Size(double.infinity, 45),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          icon: Icon(
+                            Icons.date_range_sharp,
+                            color: Colors.red[900]!,
+                          ),
+                          label: Text(
+                            'Fecha de nacimiento',
+                            style: TextStyle(
+                              color: Colors.red[900]!,
+                            ),
+                          ),
                         ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
+                        SizedBox(height: 10),
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Correo',
+                          ),
+                        ),
+                        Divider(),
+                        SizedBox(height: 10),
+                        OutlinedButton.icon(
                           onPressed: () {
                             // Implementa la lógica para el último botón
                           },
-                          child: Text('Guardar'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side:
+                                BorderSide(color: Colors.red[900]!, width: 1.5),
+                            minimumSize: Size(double.infinity, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          icon: Icon(
+                            Icons.save,
+                            color: Colors.red[900]!,
+                          ),
+                          label: Text(
+                            'Guardar',
+                            style: TextStyle(
+                              color: Colors.red[900]!,
+                            ),
+                          ),
                         ),
                       ],
                     ),

@@ -270,6 +270,7 @@ class RoundBorderButton extends StatelessWidget {
           primary: Colors.transparent,
           onPrimary: Colors.transparent,
           elevation: 0,
+          minimumSize: Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
             side: BorderSide(

@@ -176,13 +176,14 @@ class FotoLicenciaAtras extends StatelessWidget {
                   style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
+                //minimumSize: Size(double.infinity, 50),
                 side: BorderSide(color: Colors.red[900]!, width: 1.5),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            //const SizedBox(height: 10),
           ],
         ),
       ),
@@ -263,6 +264,7 @@ class RoundBorderButton extends StatelessWidget {
           primary: Colors.transparent,
           onPrimary: Colors.transparent,
           elevation: 0,
+          minimumSize: Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
             side: BorderSide(
